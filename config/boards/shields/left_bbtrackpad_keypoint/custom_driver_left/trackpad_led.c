@@ -126,20 +126,6 @@ static void polling_work_handler(struct k_work *work) {
     bool current_active = (zmk_activity_get_state() == ZMK_ACTIVITY_ACTIVE);
     uint8_t current_brt = zmk_backlight_get_brt();
 
-    /* ---------------- USB mode ---------------- */
-    if (transport == ZMK_TRANSPORT_USB) {
-        if (!usb_mode) {
-            /* Entering USB mode: start flashing task */
-            usb_mode = true;
-            usb_flash_state = false;
-            k_work_reschedule(&usb_flash_work, K_NO_WAIT);
-            LOG_INF("Entered USB flash mode");
-        }
-        /* Skip BLE logic */
-        k_work_reschedule(&polling_work, K_MSEC(POLLING_INTERVAL_MS));
-        return;
-    }
-
     /* ---------------- BLE mode ---------------- */
     if (usb_mode) {
         /* Switching from USB back to BLE: stop flashing and turn off LED */
