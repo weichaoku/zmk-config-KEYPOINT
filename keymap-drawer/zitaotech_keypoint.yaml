@@ -79,7 +79,7 @@ layers:
   - '&mkp RCLK'
   - '&mkp RCLK'
   - LEFT ARROW
-  - DOWN ARROW
+  - UP ARROW
   - UP ARROW
   - RIGHT
   - ''''
